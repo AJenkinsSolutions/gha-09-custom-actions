@@ -1,9 +1,9 @@
-name: 'Get & Cache Dependencies'
+name: Get & Cache Dependencies
 # no 'on' triggers are not needed in custom actions only workflows
-description: 'Get the dependencies (via npm) and cache'
+description: Get the dependencies (via npm) and cache
 # Must use runs
 runs:
-  using: 'composite'
+  using: composite
   steps:
 
     - name: Cache dependencies
