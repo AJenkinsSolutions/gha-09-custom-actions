@@ -9,13 +9,17 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      # Adding Custom Action
+
+      # Adding Custom Compsite Action
       - name: Load & Cache Dependencies
       # If you created a standalone repository for your custom action, you would need a repository identifier
       # Example.. AJenkinsSolutions/custom-action-repo 
       # Or local path. relative to root folder
         uses: ./.github/actions/cached-deps
-
+        # If we want to use our custom actions input
+        # we set that 'caching' input to false to disable caching in this step
+        with: 
+          caching: 'false'
       - name: Lint code
         run: npm run lint
   test:
@@ -23,8 +27,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-        
-      # Adding Custom Action
+
+      # Custom composite Action
       - name: Load & Cache Dependencies
         uses: ./.github/actions/cached-deps
 
@@ -44,7 +48,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
 
-     # Adding Custom Action
+     # Custom Action
       - name: Load & Cache Dependencies
         uses: ./.github/actions/cached-deps
 
