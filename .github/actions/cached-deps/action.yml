@@ -5,6 +5,10 @@ inputs:
     description: choice to cache dependenices or not
     required: false
     default: 'true'
+outputs:
+  used-cache:
+  description: cache was used
+  value: ${{steps.install.outputs.cache}}
 # Must use runs
 runs:
   using: composite
@@ -20,7 +24,10 @@ runs:
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
   
     - name: Install dependencies
+      id: install
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "cache='${{inputs.caching}}'" >> $GITHUB_OUTPUT
       #Using 'run' command:  Must add 'shell key' when making 'composite' actions
       shell: bash
